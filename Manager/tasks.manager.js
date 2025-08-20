@@ -1,0 +1,68 @@
+import { taskModel } from "../Models/tasks.model.js";
+import mongoose from "mongoose";
+
+class TaskManager{
+    constructor(){}
+    async Create(info){
+        try{
+            let result = await taskModel.create(info);
+            return({result:"OK",payload:"Tarea registrado con exito"});
+        } catch (error){
+            return({result:"Error",payload:error.message});
+        }
+    }
+    async Update(info){
+        const {tid,description} = info;
+        try{
+            let exist = await taskModel.findOne({_id:tid});
+            if(!exist){
+                return({result:"Error",payload:"La tarea no se encontró"});
+            }
+            let result = await taskModel.updateOne({_id:tid},{description:description});
+            return({result:"OK",payload:result});
+        } catch(erro){
+            return({result:"Error",payload:error.message});
+        }
+    }
+    async Check(info){
+        const {tid} = info;
+        try{
+            let exist = await taskModel.findOne({_id:tid});
+            if(!exist){
+                return({result:"Error",payload:"La tarea no se encontró"});
+            }
+            let result = await taskModel.updateOne({_id:tid},{completed:!exist.completed});
+            return({result:"OK",payload:result});
+        } catch(erro){
+            return({result:"Error",payload:error.message});
+        }
+    }
+    async GetAll(info){
+        const {uid} = info;
+        try{
+            // let result = await taskModel.find();
+            let result = await taskModel.find({uid:uid});
+            if(!result){
+                return({result:"Error",payload:"El usuario tiene tareas"});
+            }
+            return({resutl:"OK",payload:result});
+        }catch (error){
+            return({result:"Error",payload:error.message});
+        }
+    }
+    async Delete(info){
+        const {tid} = info;
+        try{
+            const exist = await taskModel.findOne({_id:tid});
+            if(!exist){
+                return({result:"Error",payload:"La tarea no se encontro"});
+            }
+            let result = await taskModel.deleteOne({_id:tid});
+            return({result:"OK",payload:"Tarea eliminada"});
+        } catch (error){
+            return({result:"Error",payload:error.message})
+        }
+    }
+}
+
+export default TaskManager
