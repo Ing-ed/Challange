@@ -12,15 +12,19 @@ class TaskManager{
         }
     }
     async Update(info){
-        const {tid,description} = info;
+        const {tid,field,value} = info;
+        console.log(info,"info");
+        let update = {$set:{}}
+        update.$set[field] = value
+        console.log(update,"update");
         try{
-            let exist = await taskModel.findOne({_id:tid});
+            let exist = await taskModel.findOne({_id:new mongoose.Types.ObjectId(tid)});
             if(!exist){
                 return({result:"Error",payload:"La tarea no se encontró"});
             }
-            let result = await taskModel.updateOne({_id:tid},{description:description});
+            let result = await taskModel.updateOne({_id:tid},update);
             return({result:"OK",payload:result});
-        } catch(erro){
+        } catch(error){
             return({result:"Error",payload:error.message});
         }
     }

@@ -21,4 +21,24 @@ router.post("/newtask",async (req,res) =>{
     res.send(result);
 })
 
+router.put("/updatetask",async (req,res) =>{
+    console.log("updateTask",req.body);
+    const result = await taskManager.Update(req.body);
+    console.log(result);
+    res.send(result);
+})
+
+router.put("/checktask",async (req,res) =>{
+    console.log("checktask");
+    const result = await taskManager.Check(req.body);
+    console.log(result);
+    res.send(result);
+})
+
+router.delete("/deletetask",async (req,res)=>{
+    console.log("deleteTask");
+    const result = await taskManager.Delete(req.body);
+    console.log("resultDelete",result);
+    res.send(result);
+})
 export default router
