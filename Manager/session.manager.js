@@ -29,7 +29,7 @@ class SessionManager{
             if(exist.pass !== pass){
                 return({result:"Error",payload:"Usuario o contraseña incorrecos"});
             }
-            return({result:"OK",payload:{email:exist.email,name:exist.name}});
+            return({result:"OK",payload:exist});
         }catch (error){
             return({result:"Error",payload:error.message});
         }
