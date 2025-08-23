@@ -6,7 +6,7 @@ class TaskManager{
     async Create(info){
         try{
             let result = await taskModel.create(info);
-            return({result:"OK",payload:"Tarea registrado con exito"});
+            return({result:"OK",payload:result});
         } catch (error){
             return({result:"Error",payload:error.message});
         }
@@ -32,11 +32,13 @@ class TaskManager{
         const {tid} = info;
         try{
             let exist = await taskModel.findOne({_id:tid});
+            console.log(exist,"MANAGER")
             if(!exist){
                 return({result:"Error",payload:"La tarea no se encontró"});
             }
-            let result = await taskModel.updateOne({_id:tid},{completed:!exist.completed});
-            return({result:"OK",payload:result});
+            let result = await taskModel.updateOne({_id:tid},{completed:!exist._doc.completed});
+            
+            return({result:"OK",payload:{...exist._doc, completed:!exist._doc.completed}});
         } catch(erro){
             return({result:"Error",payload:error.message});
         }
