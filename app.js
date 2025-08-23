@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from 'cors';
@@ -19,6 +20,7 @@ const app = express();
 app.use(express.urlencoded( {extended : true}));
 app.set('views', __dirname+'/views');
 app.use(express.json());
+app.use(cookieParser())
 app.use(cors({
   origin: "http://localhost:3000",  // o "*" si quieres permitir todo
   credentials: true                 // si usas cookies o auth
