@@ -13,7 +13,7 @@ class TokenManager{
     VeryfyToken(token){
         try{
             const result = jwt.verify(token,this.SECRET)
-            // //console.log(result,"decoded")
+            console.log(result,"decoded")
             return result
         } catch (e){
             return({})

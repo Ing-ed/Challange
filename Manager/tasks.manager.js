@@ -51,7 +51,7 @@ class TaskManager{
             if(!result){
                 return({result:"Error",payload:"El usuario tiene tareas"});
             }
-            return({resutl:"OK",payload:result});
+            return({result:"OK",payload:result});
         }catch (error){
             return({result:"Error",payload:error.message});
         }

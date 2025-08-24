@@ -19,6 +19,12 @@ router.post("/signup",async (req,res)=>{
 
 router.post("/login",async (req,res)=>{
     const result = await sessionManager.Login(req.body);
-    res.send(result);
+    console.log(result,"result post")
+    if(result.result === "OK"){
+        console.log("generar cookie");
+        res.cookie("auth",result.payload.token,{sameSite:'None',httponly:false,secure:true}).send(result)
+    } else {
+        res.send(result);
+    }
 })
 export default router;

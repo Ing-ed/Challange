@@ -7,6 +7,7 @@ class HashService{
         return pass;
     }
     CompareHash(pass,user){
+        console.log(pass,user,"CompareHash")
         return(bcrypt.compareSync(pass,user))
     }
 }

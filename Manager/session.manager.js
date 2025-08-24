@@ -34,11 +34,16 @@ class SessionManager{
             if(!hashService.CompareHash(pass,exist.pass)){
                 return({result:"Error",payload:"Contraseña incorrecta"});
             }
-            if(exist.pass !== pass){
-                return({result:"Error",payload:"Usuario o contraseña incorrecos"});
-            }
-            const token = tokenManager.CreateToken({exist._id});
-            return({result:"OK",payload:exist});
+            // if(exist.pass !== pass){
+            //     return({result:"Error",payload:"Usuario o contraseña incorrecos"});
+            // }
+            const token = tokenManager.CreateToken(exist._id.toString());
+            const payload = {
+                email: exist._doc.email,
+                uid: exist._doc._id.toString(),
+                token
+            };
+            return({result:"OK",payload:payload});
         }catch (error){
             return({result:"Error",payload:error.message});
         }

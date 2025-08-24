@@ -21,10 +21,12 @@ app.use(express.urlencoded( {extended : true}));
 app.set('views', __dirname+'/views');
 app.use(express.json());
 app.use(cookieParser())
-app.use(cors({
-  origin: "http://localhost:3000",  // o "*" si quieres permitir todo
-  credentials: true                 // si usas cookies o auth
-}));
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.use("/api/sessions",sessionRouter)
 app.use("/api/tasks",taskRouter)
