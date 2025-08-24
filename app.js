@@ -28,6 +28,10 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+app.get("/",(req,res) =>{
+  res.send("OK, server corriendo")
+})
+
 app.use("/api/sessions",sessionRouter)
 app.use("/api/tasks",taskRouter)
 
