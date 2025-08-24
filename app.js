@@ -35,4 +35,6 @@ app.get("/",(req,res) =>{
 app.use("/api/sessions",sessionRouter)
 app.use("/api/tasks",taskRouter)
 
-app.listen(8080);
+// app.listen(8080);
+
+export default app
