@@ -22,7 +22,7 @@ app.set('views', __dirname+'/views');
 app.use(express.json());
 app.use(cookieParser())
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://challenge-codelaunch.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 };
@@ -35,6 +35,6 @@ app.get("/",(req,res) =>{
 app.use("/api/sessions",sessionRouter)
 app.use("/api/tasks",taskRouter)
 
-// app.listen(8080);
+app.listen(8080);
 
-export default app
+// export default app
